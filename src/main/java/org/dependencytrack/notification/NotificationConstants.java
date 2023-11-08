@@ -45,6 +45,7 @@ public class NotificationConstants {
         public static final String ANALYSIS_DECISION_IN_TRIAGE = "Analysis Decision: In Triage";
         public static final String ANALYSIS_DECISION_FALSE_POSITIVE = "Analysis Decision: False Positive";
         public static final String ANALYSIS_DECISION_NOT_AFFECTED = "Analysis Decision: Not Affected";
+        public static final String ANALYSIS_DECISION_TEST_STATE = "Analysis Decision: Test State";
         public static final String ANALYSIS_DECISION_NOT_SET = "Analysis Decision: Marking Finding as NOT SET";
         public static final String ANALYSIS_DECISION_SUPPRESSED = "Analysis Decision: Finding Suppressed";
         public static final String ANALYSIS_DECISION_UNSUPPRESSED = "Analysis Decision: Finding UnSuppressed";

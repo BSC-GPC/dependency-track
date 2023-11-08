@@ -147,6 +147,9 @@ public final class NotificationUtil {
                     case FALSE_POSITIVE:
                         title = NotificationConstants.Title.ANALYSIS_DECISION_FALSE_POSITIVE;
                         break;
+                    case TEST_STATE:
+                        title = NotificationConstants.Title.ANALYSIS_DECISION_TEST_STATE;
+                        break;
                     case NOT_SET:
                         title = NotificationConstants.Title.ANALYSIS_DECISION_NOT_SET;
                         break;
