@@ -28,6 +28,7 @@ public enum Permissions {
 
     BOM_UPLOAD("Allows the ability to upload CycloneDX Software Bill of Materials (SBOM)"),
     VIEW_PORTFOLIO("Provides the ability to view the portfolio of projects, components, and licenses"),
+    TEAM_ADMIN("Provides the ability to create and delete projects within a team"),
     PORTFOLIO_MANAGEMENT("Allows the creation, modification, and deletion of data in the portfolio"),
     VIEW_VULNERABILITY("Provides the ability to view the vulnerabilities projects are affected by"),
     VULNERABILITY_ANALYSIS("Provides the ability to make analysis decisions on vulnerabilities"),
@@ -52,6 +53,7 @@ public enum Permissions {
     public static class Constants {
         public static final String BOM_UPLOAD = "BOM_UPLOAD";
         public static final String VIEW_PORTFOLIO = "VIEW_PORTFOLIO";
+        public static final String TEAM_ADMIN = "TEAM_ADMIN";
         public static final String PORTFOLIO_MANAGEMENT = "PORTFOLIO_MANAGEMENT";
         public static final String VIEW_VULNERABILITY = "VIEW_VULNERABILITY";
         public static final String VULNERABILITY_ANALYSIS = "VULNERABILITY_ANALYSIS";

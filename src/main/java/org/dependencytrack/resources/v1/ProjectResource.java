@@ -257,6 +257,7 @@ public class ProjectResource extends AlpineResource {
                     return Response.status(Response.Status.CONFLICT).entity("An inactive Parent cannot be selected as parent").build();
                 }
                 Principal principal = getPrincipal();
+                System.out.println(principal);
                 qm.updateNewProjectACL(project, principal);
                 LOGGER.info("Project " + project.toString() + " created by " + super.getPrincipal().getName());
                 return Response.status(Response.Status.CREATED).entity(project).build();
@@ -466,7 +467,7 @@ public class ProjectResource extends AlpineResource {
             @ApiResponse(code = 403, message = "Access to the specified project is forbidden"),
             @ApiResponse(code = 404, message = "The UUID of the project could not be found")
     })
-    @PermissionRequired(Permissions.Constants.PORTFOLIO_MANAGEMENT)
+    @PermissionRequired(Permissions.Constants.TEAM_ADMIN)
     public Response deleteProject(
             @ApiParam(value = "The UUID of the project to delete", required = true)
             @PathParam("uuid") String uuid) {
