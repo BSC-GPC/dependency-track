@@ -21,7 +21,7 @@ package org.dependencytrack.persistence;
 import alpine.common.logging.Logger;
 import alpine.event.framework.Event;
 import alpine.model.ApiKey;
-//import alpine.model.ManagedUser;
+import alpine.model.ManagedUser;
 import alpine.model.Permission;
 import alpine.model.Team;
 import alpine.model.UserPrincipal;
@@ -937,37 +937,20 @@ final class ProjectQueryManager extends QueryManager implements IQueryManager {
      */
     @Override
     public boolean updateNewProjectACL(Project project, Principal principal) {
-        // Not necessary if doing manual team selection ???
         // Check which team should have access based on current user's teams
-//        if (isEnabled(ConfigPropertyConstants.ACCESS_MANAGEMENT_ACL_ENABLED) && principal instanceof ManagedUser managedUser){
-//
-//            final var managedUserTeams = managedUser.getTeams();
-//            boolean isUpdated = false;
-//
-//            // Loop through the current user's teams
-//            for (int i = 0, teamsSize = managedUserTeams.size(); i < teamsSize; i++) {
-//                final Team team = getObjectByUuid(Team.class, managedUserTeams.get(i).getUuid());
-//                List<Permission> permissions = team.getPermissions();
-//                System.out.println("permissions : " + permissions);
-//
-//                // Loop through the team's permissions
-//                for (int j = 0; j < permissions.size(); j++) {
-//                    // Don't allow Team Admins team to have project access (has Team_Admin permission)
-//                    if (Permissions.TEAM_ADMIN.name().equals(permissions.get(i).getName())) {
-//                        LOGGER.debug("not adding Team Admin Team to ACL of newly created project");
-//                        break;
-//                    }
-//                    // Allow team to have project access
-//                    else if(j == permissions.size() - 1){
-//                        LOGGER.debug("adding Team to ACL of newly created project");
-//                        project.addAccessTeam(team);
-//                        persist(project);
-//                        isUpdated = true;
-//                    }
-//                }
-//            }
-//            return isUpdated;
-//        }
+        if (isEnabled(ConfigPropertyConstants.ACCESS_MANAGEMENT_ACL_ENABLED) && principal instanceof ManagedUser managedUser){
+            final var managedUserTeams = managedUser.getTeams();
+
+            if(managedUserTeams.size() == 1){
+                final Team team = getObjectByUuid(Team.class, managedUserTeams.get(0).getUuid());
+                LOGGER.debug("adding Team to ACL of newly created project");
+                project.addAccessTeam(team);
+                persist(project);
+                return true;
+            }
+            return false;
+        }
+
         if (isEnabled(ConfigPropertyConstants.ACCESS_MANAGEMENT_ACL_ENABLED) && principal instanceof ApiKey apiKey) {
             final var apiTeam = apiKey.getTeams().stream().findFirst();
             if (apiTeam.isPresent()) {
