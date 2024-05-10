@@ -513,7 +513,7 @@ public class ProjectResource extends AlpineResource {
             @ApiResponse(code = 403, message = "Access to the specified project is forbidden"),
             @ApiResponse(code = 404, message = "The UUID of the project could not be found")
     })
-    @PermissionRequired(Permissions.Constants.PORTFOLIO_MANAGEMENT)
+    @PermissionRequired(Permissions.Constants.TEAM_ADMIN)
     public Response deleteProject(
             @ApiParam(value = "The UUID of the project to delete", format = "uuid", required = true)
             @PathParam("uuid") @ValidUuid String uuid) {

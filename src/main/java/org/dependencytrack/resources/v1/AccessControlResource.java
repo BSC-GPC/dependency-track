@@ -108,6 +108,7 @@ public class AccessControlResource extends AlpineResource {
             @ApiResponse(code = 404, message = "The UUID of the team or project could not be found"),
             @ApiResponse(code = 409, message = "A mapping with the same team and project already exists")
     })
+
     @PermissionRequired(Permissions.Constants.ACCESS_MANAGEMENT)
     public Response addMapping(AclMappingRequest request) {
         final Validator validator = super.getValidator();
