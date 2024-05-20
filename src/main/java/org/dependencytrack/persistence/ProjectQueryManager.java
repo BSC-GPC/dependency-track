@@ -20,11 +20,7 @@ package org.dependencytrack.persistence;
 
 import alpine.common.logging.Logger;
 import alpine.event.framework.Event;
-import alpine.model.ApiKey;
-import alpine.model.ManagedUser;
-import alpine.model.Permission;
-import alpine.model.Team;
-import alpine.model.UserPrincipal;
+import alpine.model.*;
 import alpine.notification.Notification;
 import alpine.notification.NotificationLevel;
 import alpine.persistence.PaginatedResult;
@@ -949,6 +945,19 @@ final class ProjectQueryManager extends QueryManager implements IQueryManager {
 
             if(managedUserTeams.size() == 1){
                 final Team team = getObjectByUuid(Team.class, managedUserTeams.get(0).getUuid());
+                LOGGER.debug("adding Team to ACL of newly created project");
+                project.addAccessTeam(team);
+                persist(project);
+                return true;
+            }
+            return false;
+        }
+
+        if (isEnabled(ConfigPropertyConstants.ACCESS_MANAGEMENT_ACL_ENABLED) && principal instanceof OidcUser oicdUser){
+            final var oicdUserTeams = oicdUser.getTeams();
+
+            if(oicdUserTeams.size() == 1){
+                final Team team = getObjectByUuid(Team.class, oicdUserTeams.get(0).getUuid());
                 LOGGER.debug("adding Team to ACL of newly created project");
                 project.addAccessTeam(team);
                 persist(project);

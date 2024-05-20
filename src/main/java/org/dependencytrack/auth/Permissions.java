@@ -28,7 +28,7 @@ public enum Permissions {
 
     BOM_UPLOAD("Allows the ability to upload CycloneDX Software Bill of Materials (SBOM)"),
     VIEW_PORTFOLIO("Provides the ability to view the portfolio of projects, components, and licenses"),
-    TEAM_ADMIN("Provides the ability to create and delete projects within a team"),
+    TEAM_ADMIN("Provides the ability to delete projects within a team"),
     PORTFOLIO_MANAGEMENT("Allows the creation, modification, and deletion of data in the portfolio"),
     VIEW_VULNERABILITY("Provides the ability to view the vulnerabilities projects are affected by"),
     VULNERABILITY_ANALYSIS("Provides the ability to make analysis decisions on vulnerabilities"),
