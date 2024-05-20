@@ -21,6 +21,7 @@ package org.dependencytrack.persistence;
 import alpine.common.logging.Logger;
 import alpine.event.framework.Event;
 import alpine.model.ApiKey;
+import alpine.model.ManagedUser;
 import alpine.model.Permission;
 import alpine.model.Team;
 import alpine.model.UserPrincipal;
@@ -942,6 +943,20 @@ final class ProjectQueryManager extends QueryManager implements IQueryManager {
      */
     @Override
     public boolean updateNewProjectACL(Project project, Principal principal) {
+        // Check which team should have access based on current user's teams
+        if (isEnabled(ConfigPropertyConstants.ACCESS_MANAGEMENT_ACL_ENABLED) && principal instanceof ManagedUser managedUser){
+            final var managedUserTeams = managedUser.getTeams();
+
+            if(managedUserTeams.size() == 1){
+                final Team team = getObjectByUuid(Team.class, managedUserTeams.get(0).getUuid());
+                LOGGER.debug("adding Team to ACL of newly created project");
+                project.addAccessTeam(team);
+                persist(project);
+                return true;
+            }
+            return false;
+        }
+
         if (isEnabled(ConfigPropertyConstants.ACCESS_MANAGEMENT_ACL_ENABLED) && principal instanceof ApiKey apiKey) {
             final var apiTeam = apiKey.getTeams().stream().findFirst();
             if (apiTeam.isPresent()) {
