@@ -20,7 +20,12 @@ package org.dependencytrack.persistence;
 
 import alpine.common.logging.Logger;
 import alpine.event.framework.Event;
-import alpine.model.*;
+import alpine.model.Team;
+import alpine.model.ManagedUser;
+import alpine.model.OidcUser;
+import alpine.model.Permission;
+import alpine.model.ApiKey;
+import alpine.model.UserPrincipal;
 import alpine.notification.Notification;
 import alpine.notification.NotificationLevel;
 import alpine.persistence.PaginatedResult;
